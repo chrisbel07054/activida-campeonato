@@ -61,3 +61,63 @@ const postModalidad = async (req, resp = response ) => {
             })
         }
 }
+const putModalidad  = async (req, resp = response ) => {
+    const uid = req.params.id
+    try {
+        const modalidadDb = await Modalidad.findById(uid)
+
+        if(!modalidadDb){
+            return resp.status(400).json({
+                ok:false,
+                msg:'Esta modalidad no existe'
+            })
+            }
+
+        const modalidad = await Modalidad.findByIdAndUpdate(uid, req.body, {new: true})
+
+        resp.json({
+            ok:true,
+            modalidad
+            })  
+       
+    } catch (error) {
+        console.log(error)
+        resp.status(500).json({
+            ok:false,
+            msg:'Error inesperado... reivsar logs'
+        })
+    }
+}
+
+
+const deleteModalidad = async( req, resp = response ) => {
+const uid = req.params.id
+try {
+const ModalidadDB = await Modalidad.findById(uid)
+
+ //Verificacion de que ya exista el modalidad
+if(!ModalidadDB){
+    return resp.status(400).json({
+        ok:false,
+        msg:'Esta modalidad no existe'
+    })
+    }
+
+    //Eliminación
+    const modalidad = await Modalidad.findByIdAndDelete(uid)
+
+        resp.json({
+        ok:true,
+        msg: 'Modalidad eliminado'
+        })  
+        
+    } catch (error) {
+        console.log(error);
+        resp.status(500).json({
+            ok:'false',
+            msg:'Error inesperado... reivsar logs'
+        })
+    }
+}
+
+module.exports = { getModalidad, postModalidad, putModalidad, deleteModalidad}
