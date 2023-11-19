@@ -1,6 +1,7 @@
 # Integrantes
 
   - Luisiana valeria carreño viloria
+  - Chrisbel alexandra briceño briceño
 
 # Profesor
 
